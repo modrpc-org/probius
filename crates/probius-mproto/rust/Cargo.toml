@@ -1,0 +1,16 @@
+[package]
+name = "probius-mproto"
+version = "0.1.0"
+edition = "2024"
+description = "mproto types for probius"
+repository = "https://github.com/modular-rpc/probius"
+documentation = "https://docs.rs/probius"
+license = "MIT"
+
+[dependencies]
+mproto = { version = "0.2", default-features = false }
+
+[features]
+default = ["std"]
+std = ["mproto/std"]
+alloc = ["mproto/alloc"]

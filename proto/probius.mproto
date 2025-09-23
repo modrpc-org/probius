@@ -1,0 +1,122 @@
+struct SinkHandshake {
+    app_name: string,
+    session_id_hi: u64,
+    session_id_lo: u64,
+}
+
+struct SourceId {
+    source: u64,
+}
+
+struct GlobalSourceId {
+    session: u64,
+    source: SourceId,
+}
+
+struct TraceCallerId {
+    event_id: EventId,
+    op_index: u16,
+}
+
+struct EventSeq { seq: u16 }
+
+struct EventId {
+    source: SourceId,
+    timestamp_nanos: u64,
+    seq: EventSeq,
+}
+
+struct EventHeader {
+    id: EventId,
+    len: u16,
+    kind: EventKind,
+}
+
+enum EventKind {
+    CreateSource,
+    DeleteSource,
+    Trace,
+    TraceAggregate,
+    TraceAggregateDelta,
+}
+
+struct CreateSource {
+    name: string,
+    parent: option<SourceId>,
+    is_recurring: bool,
+}
+
+struct Trace {
+    start_nanos: u64,
+    trace: [u8],
+}
+
+struct TraceAggregate {
+    start_nanos: u64,
+    nodes: [TraceAggregateNode],
+    counters: [u32],
+    metrics: [MetricAggregate],
+}
+
+struct TraceAggregateDelta {
+    start_nanos: u64,
+    end_nanos: u64,
+    counters: [u32],
+    metrics: [MetricAggregate],
+}
+
+struct TraceAggregateNode {
+    op: TraceOpAggregate,
+    branch_next: option<u16>,
+    next: option<u16>,
+}
+
+enum TraceOp {
+    CreateSource { source: SourceId },
+    DeleteSource { source: SourceId },
+    Call { source: SourceId },
+    PushScope,
+    PopScope,
+    BranchStart,
+    BranchEnd,
+    Label,
+    Tag { tag: u64 },
+    Metric { value: i64 },
+
+    ChannelSend { channel: SourceId },
+    ChannelReceive { channel: SourceId, sender: TraceCallerId },
+    ChannelTransfer { from: SourceId, to: SourceId },
+
+    GlobalChannelSend { channel: GlobalSourceId },
+    GlobalChannelReceive { channel: GlobalSourceId },
+    GlobalChannelTransfer { from: GlobalSourceId, to: GlobalSourceId },
+}
+
+enum TraceOpAggregate {
+    CreateSource,
+    DeleteSource,
+    Call { source: SourceId },
+    PushScope,
+    PopScope,
+    BranchStart { branch_end: u16 },
+    BranchEnd { parent_branch_end: u16 },
+    Label { label: string },
+    Tag,
+    Metric { name: string, index: u16 },
+
+    ChannelSend { channel: SourceId },
+    ChannelReceive { channel: SourceId },
+    ChannelTransfer { from: SourceId, to: SourceId },
+
+    GlobalChannelSend { channel: GlobalSourceId },
+    GlobalChannelReceive { channel: GlobalSourceId },
+    GlobalChannelTransfer { from: GlobalSourceId, to: GlobalSourceId },
+}
+
+struct MetricAggregate {
+    count: u64,
+    sum: i64,
+    min: i64,
+    max: i64,
+}
+
