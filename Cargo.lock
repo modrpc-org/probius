@@ -10,9 +10,9 @@ checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
 
 [[package]]
 name = "bab"
-version = "0.0.3"
+version = "0.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2683e5379a4882906bb45bfcc9585bb62d83e36bd854b5eae99c3bb6c462b80f"
+checksum = "6e6a32d3b4f735ba5d89ea596518c7e88da4ee8a9bf38dd18102e5afaac15106"
 dependencies = [
  "crossbeam-utils",
  "spin",
@@ -56,7 +56,7 @@ checksum = "2f3a9f18d041e6d0e102a0a46750538147e5e8992d3b4873aaafee2520b00ce3"
 
 [[package]]
 name = "probius"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "bab",
  "fastrand",
@@ -96,9 +96,9 @@ checksum = "309033656d80914c59d7029ac985c59d0f3e84a9b58254c1732cf340be75759a"
 
 [[package]]
 name = "waitq"
-version = "0.0.2"
+version = "0.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8e302202d34070b20e4097f8db1e17cdf281bd86bcf53cd8a5288a3465e41d92"
+checksum = "d3b65d69dd4fee3854e8d111550ef8404dd912f3204ddb228f40ccbf5aefaba0"
 dependencies = [
  "spin",
  "thid",

@@ -1,6 +1,6 @@
 [package]
 name = "probius"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2024"
 description = "metrics and tracing system that learns the structure of your system"
 repository = "https://github.com/modular-rpc/probius"
@@ -15,8 +15,8 @@ enabled = []
 tcp-sink = ["enabled", "fastrand", "pollster"]
 
 [dependencies]
-bab = "0.0.3"
-mproto = "0.2.0"
+bab = "0.0"
+mproto = "0.2"
 probius-mproto = { version = "0.1.0", path = "../probius-mproto/rust", default-features = false, features = ["std"] }
 spin = "0.9"
 
