@@ -22,7 +22,7 @@ pub struct Component {
 
 impl Component {
     #[cfg(feature = "enabled")]
-    pub(crate) fn new(probius: Probius, name: &'static str, is_recurring: bool) -> Self {
+    pub(crate) fn new(probius: Probius, name: &str, is_recurring: bool) -> Self {
         Self {
             source: Source::new(probius, name, is_recurring),
         }

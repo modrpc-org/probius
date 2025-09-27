@@ -79,37 +79,37 @@ pub fn flush() -> impl Iterator<Item = bab::BufferPtr> {
     with_probius(|probius| probius.inner.flush())
 }
 
-pub fn enter_component<R>(name: &'static str, f: impl FnOnce() -> R) -> R {
+pub fn enter_component<R>(name: &str, f: impl FnOnce() -> R) -> R {
     try_with_probius(|probius| {
         Component::new(probius.clone(), name, false).enter(f)
     })
 }
 
-pub async fn enter_component_async<F: Future>(name: &'static str, f: F) -> F::Output {
+pub async fn enter_component_async<F: Future>(name: &str, f: F) -> F::Output {
     let probius = try_with_probius(|probius| probius.clone());
 
     Component::new(probius, name, false).enter_async(f).await
 }
 
-pub fn enter_component_ephemeral<R>(name: &'static str, f: impl FnOnce() -> R) -> R {
+pub fn enter_component_ephemeral<R>(name: &str, f: impl FnOnce() -> R) -> R {
     try_with_probius(|probius| {
         Component::new(probius.clone(), name, false).enter(f)
     })
 }
 
-pub async fn enter_component_ephemeral_async<F: Future>(name: &'static str, f: F) -> F::Output {
+pub async fn enter_component_ephemeral_async<F: Future>(name: &str, f: F) -> F::Output {
     let probius = try_with_probius(|probius| probius.clone());
 
     Component::new(probius, name, false).enter_async(f).await
 }
 
-pub fn new_trace_source(name: &'static str) -> TraceSource {
+pub fn new_trace_source(name: &str) -> TraceSource {
     try_with_probius(|probius| {
         TraceSource::new(probius.clone(), name, true)
     })
 }
 
-pub fn new_trace_source_ephemeral(name: &'static str) -> TraceSource {
+pub fn new_trace_source_ephemeral(name: &str) -> TraceSource {
     try_with_probius(|probius| {
         TraceSource::new(probius.clone(), name, false)
     })
@@ -220,7 +220,7 @@ pub struct Source {
 }
 
 impl Source {
-    pub(crate) fn new(probius: Probius, name: &'static str, is_recurring: bool) -> Self {
+    pub(crate) fn new(probius: Probius, name: &str, is_recurring: bool) -> Self {
         let source = Self {
             probius: probius.clone(),
 
@@ -282,7 +282,7 @@ pub struct TraceSource {
 }
 
 impl TraceSource {
-    fn new(probius: Probius, name: &'static str, is_recurring: bool) -> Self {
+    fn new(probius: Probius, name: &str, is_recurring: bool) -> Self {
         Self {
             source: Source::new(probius, name, is_recurring),
             trace_aggregator: TraceAggregator::new(),
@@ -347,7 +347,7 @@ fn with_current_trace(f: impl FnOnce(&Trace)) {
     }
 }
 
-/*pub fn trace_create_source(name: &'static str) -> Source {
+/*pub fn trace_create_source(name: &str) -> Source {
     let source = Source::new(name);
     with_current_trace(|trace| {
         trace.push_op(TraceOp::CreateSource { source: source.id });
