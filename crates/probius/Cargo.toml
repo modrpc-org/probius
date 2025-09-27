@@ -1,6 +1,6 @@
 [package]
 name = "probius"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2024"
 description = "metrics and tracing system that learns the structure of your system"
 repository = "https://github.com/modular-rpc/probius"
