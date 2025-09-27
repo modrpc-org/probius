@@ -194,7 +194,7 @@ pub struct LinkVecIter<'a, T, const N: usize> {
     _lifetime: PhantomData<&'a ()>,
 }
 
-impl<'a, T: std::fmt::Debug + 'a, const N: usize> Iterator for LinkVecIter<'a, T, N> {
+impl<'a, T: core::fmt::Debug + 'a, const N: usize> Iterator for LinkVecIter<'a, T, N> {
     type Item = &'a T;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -222,7 +222,7 @@ impl<'a, T: std::fmt::Debug + 'a, const N: usize> Iterator for LinkVecIter<'a, T
     }
 }
 
-impl<'a, T: std::fmt::Debug + 'a, const N: usize> ExactSizeIterator for LinkVecIter<'a, T, N> {
+impl<'a, T: core::fmt::Debug + 'a, const N: usize> ExactSizeIterator for LinkVecIter<'a, T, N> {
     fn len(&self) -> usize { self.len }
 }
 

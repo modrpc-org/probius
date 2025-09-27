@@ -144,7 +144,7 @@ pub struct EventId {
     pub seq: EventSeq,
 }
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Debug, PartialEq)]
 pub enum TraceOp {
     CreateSource { source: SourceId },
     DeleteSource { source: SourceId },
@@ -155,7 +155,7 @@ pub enum TraceOp {
     BranchEnd,
     Label { label: *const str },
     Tag,
-    Metric { name: &'static str, value: i64 },
+    Metric { name: *const str, value: i64 },
 
     LocalChannelSend { channel: SourceId, version: u64 },
     LocalChannelReceive { channel: SourceId, version: u64 },
@@ -189,7 +189,7 @@ impl TraceOp {
             TraceOp::BranchEnd => TraceOpAggregate::BranchEnd,
             TraceOp::Label { label } => TraceOpAggregate::Label { label: *label }, 
             TraceOp::Tag { .. } => TraceOpAggregate::Tag,
-            TraceOp::Metric { name, .. } => TraceOpAggregate::Metric { name },
+            TraceOp::Metric { name, .. } => TraceOpAggregate::Metric { name: *name },
 
             TraceOp::LocalChannelSend { channel, .. } =>
                 TraceOpAggregate::LocalChannelSend { channel: *channel },
@@ -523,7 +523,7 @@ pub enum TraceOpAggregate {
     BranchEnd,
     Label { label: *const str },
     Tag,
-    Metric { name: &'static str },
+    Metric { name: *const str },
 
     LocalChannelSend { channel: SourceId },
     LocalChannelReceive { channel: SourceId },
@@ -589,7 +589,7 @@ impl TraceAggregateNodeData {
             TraceAggregateNodeData::Label { label } => TraceOpAggregate::Label { label: *label }, 
             TraceAggregateNodeData::Tag => TraceOpAggregate::Tag,
             TraceAggregateNodeData::Metric { name, .. } => {
-                TraceOpAggregate::Metric { name }
+                TraceOpAggregate::Metric { name: *name }
             }
 
             TraceAggregateNodeData::LocalChannelSend { channel } =>
@@ -813,7 +813,7 @@ impl TraceAggregator {
             TraceOp::Tag { .. } => TraceAggregateNodeData::Tag,
             TraceOp::Metric { name, .. } => {
                 let index = self.new_metric();
-                TraceAggregateNodeData::Metric { name, index }
+                TraceAggregateNodeData::Metric { name: unsafe { &**name }, index }
             }
 
             TraceOp::LocalChannelSend { channel, .. } =>
