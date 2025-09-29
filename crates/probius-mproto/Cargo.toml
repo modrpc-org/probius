@@ -1,11 +1,11 @@
 [package]
 name = "probius-mproto"
-version = "0.1.0"
+version = "0.1.2"
 edition = "2024"
 description = "mproto types for probius"
-repository = "https://github.com/modular-rpc/probius"
+repository = "https://github.com/modrpc-org/probius"
 documentation = "https://docs.rs/probius"
-license = "MIT"
+license = "Apache-2.0"
 
 [dependencies]
 mproto = { version = "0.2", default-features = false }

@@ -44,9 +44,9 @@ dependencies = [
 
 [[package]]
 name = "mproto"
-version = "0.2.0"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "66b20e499174c90e73aa9dadfdfa0ffa0b24553fb21f87dc1a9fef3d9904ea3a"
+checksum = "ca23d629c70801789edbbf909fb4bc20536abc764752bea2865e6f0c694cfcb0"
 
 [[package]]
 name = "pollster"
@@ -56,7 +56,7 @@ checksum = "2f3a9f18d041e6d0e102a0a46750538147e5e8992d3b4873aaafee2520b00ce3"
 
 [[package]]
 name = "probius"
-version = "0.0.3"
+version = "0.0.5"
 dependencies = [
  "bab",
  "fastrand",
@@ -68,7 +68,7 @@ dependencies = [
 
 [[package]]
 name = "probius-mproto"
-version = "0.1.0"
+version = "0.1.2"
 dependencies = [
  "mproto",
 ]

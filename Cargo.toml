@@ -2,5 +2,5 @@
 resolver = "3"
 members = [
     "crates/probius",
-    "crates/probius-mproto/rust",
+    "crates/probius-mproto",
 ]
