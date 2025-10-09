@@ -1,5 +1,3 @@
-#![feature(thread_local)]
-
 pub use probius_mproto::{GlobalSourceId, MetricAggregate, SourceId};
 
 pub use component::Component;
