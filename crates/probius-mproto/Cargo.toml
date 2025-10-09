@@ -1,6 +1,6 @@
 [package]
 name = "probius-mproto"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2024"
 description = "mproto types for probius"
 repository = "https://github.com/modrpc-org/probius"

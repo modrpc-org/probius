@@ -67,8 +67,11 @@ impl<'a> Lazy<'a> for SinkHandshakeLazy<'a> {
     type Owned = SinkHandshake;
 }
 
+impl<'a> Compatible<SinkHandshakeLazy<'a>> for SinkHandshakeLazy<'a> { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<SinkHandshakeLazy<'a>> for SinkHandshake { }
+#[cfg(any(feature = "std", feature = "alloc"))]
+impl Compatible<SinkHandshake> for SinkHandshake { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<SinkHandshake> for SinkHandshakeLazy<'a> { }
 
@@ -230,7 +233,9 @@ impl<'a> Lazy<'a> for SourceIdLazy<'a> {
     type Owned = SourceId;
 }
 
+impl<'a> Compatible<SourceIdLazy<'a>> for SourceIdLazy<'a> { }
 impl<'a> Compatible<SourceIdLazy<'a>> for SourceId { }
+impl Compatible<SourceId> for SourceId { }
 impl<'a> Compatible<SourceId> for SourceIdLazy<'a> { }
 
 impl<'a> SourceIdLazy<'a> {
@@ -380,7 +385,9 @@ impl<'a> Lazy<'a> for GlobalSourceIdLazy<'a> {
     type Owned = GlobalSourceId;
 }
 
+impl<'a> Compatible<GlobalSourceIdLazy<'a>> for GlobalSourceIdLazy<'a> { }
 impl<'a> Compatible<GlobalSourceIdLazy<'a>> for GlobalSourceId { }
+impl Compatible<GlobalSourceId> for GlobalSourceId { }
 impl<'a> Compatible<GlobalSourceId> for GlobalSourceIdLazy<'a> { }
 
 impl<'a> GlobalSourceIdLazy<'a> {
@@ -541,7 +548,9 @@ impl<'a> Lazy<'a> for TraceCallerIdLazy<'a> {
     type Owned = TraceCallerId;
 }
 
+impl<'a> Compatible<TraceCallerIdLazy<'a>> for TraceCallerIdLazy<'a> { }
 impl<'a> Compatible<TraceCallerIdLazy<'a>> for TraceCallerId { }
+impl Compatible<TraceCallerId> for TraceCallerId { }
 impl<'a> Compatible<TraceCallerId> for TraceCallerIdLazy<'a> { }
 
 impl<'a> TraceCallerIdLazy<'a> {
@@ -689,7 +698,9 @@ impl<'a> Lazy<'a> for EventSeqLazy<'a> {
     type Owned = EventSeq;
 }
 
+impl<'a> Compatible<EventSeqLazy<'a>> for EventSeqLazy<'a> { }
 impl<'a> Compatible<EventSeqLazy<'a>> for EventSeq { }
+impl Compatible<EventSeq> for EventSeq { }
 impl<'a> Compatible<EventSeq> for EventSeqLazy<'a> { }
 
 impl<'a> EventSeqLazy<'a> {
@@ -847,7 +858,9 @@ impl<'a> Lazy<'a> for EventIdLazy<'a> {
     type Owned = EventId;
 }
 
+impl<'a> Compatible<EventIdLazy<'a>> for EventIdLazy<'a> { }
 impl<'a> Compatible<EventIdLazy<'a>> for EventId { }
+impl Compatible<EventId> for EventId { }
 impl<'a> Compatible<EventId> for EventIdLazy<'a> { }
 
 impl<'a> EventIdLazy<'a> {
@@ -1026,7 +1039,9 @@ impl<'a> Lazy<'a> for EventHeaderLazy<'a> {
     type Owned = EventHeader;
 }
 
+impl<'a> Compatible<EventHeaderLazy<'a>> for EventHeaderLazy<'a> { }
 impl<'a> Compatible<EventHeaderLazy<'a>> for EventHeader { }
+impl Compatible<EventHeader> for EventHeader { }
 impl<'a> Compatible<EventHeader> for EventHeaderLazy<'a> { }
 
 impl<'a> EventHeaderLazy<'a> {
@@ -1159,8 +1174,10 @@ pub enum EventKindLazy {
     TraceAggregateDelta,
 }
 
+impl Compatible<EventKindLazy> for EventKindLazy { }
 impl Compatible<EventKindLazy> for EventKind { }
 impl Compatible<EventKind> for EventKindLazy { }
+impl Compatible<EventKind> for EventKind { }
 
 impl Owned for EventKind {
     type Lazy<'a> = EventKindLazy;
@@ -1417,8 +1434,11 @@ impl<'a> Lazy<'a> for CreateSourceLazy<'a> {
     type Owned = CreateSource;
 }
 
+impl<'a> Compatible<CreateSourceLazy<'a>> for CreateSourceLazy<'a> { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<CreateSourceLazy<'a>> for CreateSource { }
+#[cfg(any(feature = "std", feature = "alloc"))]
+impl Compatible<CreateSource> for CreateSource { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<CreateSource> for CreateSourceLazy<'a> { }
 
@@ -1595,8 +1615,11 @@ impl<'a> Lazy<'a> for TraceLazy<'a> {
     type Owned = Trace;
 }
 
+impl<'a> Compatible<TraceLazy<'a>> for TraceLazy<'a> { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<TraceLazy<'a>> for Trace { }
+#[cfg(any(feature = "std", feature = "alloc"))]
+impl Compatible<Trace> for Trace { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<Trace> for TraceLazy<'a> { }
 
@@ -1779,8 +1802,11 @@ impl<'a> Lazy<'a> for TraceAggregateLazy<'a> {
     type Owned = TraceAggregate;
 }
 
+impl<'a> Compatible<TraceAggregateLazy<'a>> for TraceAggregateLazy<'a> { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<TraceAggregateLazy<'a>> for TraceAggregate { }
+#[cfg(any(feature = "std", feature = "alloc"))]
+impl Compatible<TraceAggregate> for TraceAggregate { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<TraceAggregate> for TraceAggregateLazy<'a> { }
 
@@ -1978,8 +2004,11 @@ impl<'a> Lazy<'a> for TraceAggregateDeltaLazy<'a> {
     type Owned = TraceAggregateDelta;
 }
 
+impl<'a> Compatible<TraceAggregateDeltaLazy<'a>> for TraceAggregateDeltaLazy<'a> { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<TraceAggregateDeltaLazy<'a>> for TraceAggregateDelta { }
+#[cfg(any(feature = "std", feature = "alloc"))]
+impl Compatible<TraceAggregateDelta> for TraceAggregateDelta { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<TraceAggregateDelta> for TraceAggregateDeltaLazy<'a> { }
 
@@ -2179,8 +2208,11 @@ impl<'a> Lazy<'a> for TraceAggregateNodeLazy<'a> {
     type Owned = TraceAggregateNode;
 }
 
+impl<'a> Compatible<TraceAggregateNodeLazy<'a>> for TraceAggregateNodeLazy<'a> { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<TraceAggregateNodeLazy<'a>> for TraceAggregateNode { }
+#[cfg(any(feature = "std", feature = "alloc"))]
+impl Compatible<TraceAggregateNode> for TraceAggregateNode { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<TraceAggregateNode> for TraceAggregateNodeLazy<'a> { }
 
@@ -2389,8 +2421,10 @@ pub enum TraceOpLazy<'a> {
     },
 }
 
+impl<'a> Compatible<TraceOpLazy<'a>> for TraceOpLazy<'a> { }
 impl<'a> Compatible<TraceOpLazy<'a>> for TraceOp { }
 impl<'a> Compatible<TraceOp> for TraceOpLazy<'a> { }
+impl Compatible<TraceOp> for TraceOp { }
 
 impl Owned for TraceOp {
     type Lazy<'a> = TraceOpLazy<'a>;
@@ -3191,10 +3225,13 @@ pub enum TraceOpAggregateLazy<'a> {
     },
 }
 
+impl<'a> Compatible<TraceOpAggregateLazy<'a>> for TraceOpAggregateLazy<'a> { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<TraceOpAggregateLazy<'a>> for TraceOpAggregate { }
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl<'a> Compatible<TraceOpAggregate> for TraceOpAggregateLazy<'a> { }
+#[cfg(any(feature = "std", feature = "alloc"))]
+impl Compatible<TraceOpAggregate> for TraceOpAggregate { }
 
 #[cfg(any(feature = "std", feature = "alloc"))]
 impl Owned for TraceOpAggregate {
@@ -3960,7 +3997,9 @@ impl<'a> Lazy<'a> for MetricAggregateLazy<'a> {
     type Owned = MetricAggregate;
 }
 
+impl<'a> Compatible<MetricAggregateLazy<'a>> for MetricAggregateLazy<'a> { }
 impl<'a> Compatible<MetricAggregateLazy<'a>> for MetricAggregate { }
+impl Compatible<MetricAggregate> for MetricAggregate { }
 impl<'a> Compatible<MetricAggregate> for MetricAggregateLazy<'a> { }
 
 impl<'a> MetricAggregateLazy<'a> {
