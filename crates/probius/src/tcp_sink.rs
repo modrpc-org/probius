@@ -11,7 +11,7 @@ pub fn init_tcp_sink(
     let (buffer_sender, mut buffer_receiver) = bab::buffer_queue();
 
     let headroom = 2; // headroom for u16 length prefix
-    let buffer_size = 8192 - (10 - headroom);
+    let buffer_size = 8192 - headroom;
     let buffer_pool = bab::HeapBufferPool::new(buffer_size, 16, 64);
     crate::init(headroom, buffer_pool.clone());
 

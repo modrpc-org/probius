@@ -79,6 +79,12 @@ pub fn flush() -> impl Iterator<Item = bab::BufferPtr> {
     with_probius(|probius| probius.inner.flush())
 }
 
+pub fn new_component(name: &str) -> Component {
+    try_with_probius(|probius| {
+        Component::new(probius.clone(), name, false)
+    })
+}
+
 pub fn enter_component<R>(name: &str, f: impl FnOnce() -> R) -> R {
     try_with_probius(|probius| {
         Component::new(probius.clone(), name, false).enter(f)

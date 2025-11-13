@@ -2,9 +2,15 @@ use core::future::Future;
 
 use probius_mproto::SourceId;
 
+use crate::Component;
+
 #[inline]
 pub fn flush() -> impl Iterator<Item = bab::BufferPtr> {
     [].into_iter()
+}
+
+pub fn new_component(_name: &str) -> Component {
+    Component::new()
 }
 
 #[inline]
@@ -39,6 +45,10 @@ pub fn new_trace_source_ephemeral(_name: &str) -> TraceSource {
 pub struct Source(());
 
 impl Source {
+    pub(crate) fn new() -> Self {
+        Self(())
+    }
+
     pub fn id(&self) -> SourceId { SourceId { source: u64::MAX } }
 }
 
