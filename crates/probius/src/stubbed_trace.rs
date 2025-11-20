@@ -9,6 +9,7 @@ pub fn flush() -> impl Iterator<Item = bab::BufferPtr> {
     [].into_iter()
 }
 
+#[inline]
 pub fn new_component(_name: &str) -> Component {
     Component::new()
 }
@@ -19,8 +20,8 @@ pub fn enter_component<R>(_name: &str, f: impl FnOnce() -> R) -> R {
 }
 
 #[inline]
-pub async fn enter_component_async<F: Future>(_name: &str, f: F) -> F::Output {
-    f.await
+pub fn enter_component_async<F: Future>(_name: &str, f: F) -> F {
+    f
 }
 
 #[inline]
@@ -29,8 +30,8 @@ pub fn enter_component_ephemeral<R>(_name: &str, f: impl FnOnce() -> R) -> R {
 }
 
 #[inline]
-pub async fn enter_component_ephemeral_async<F: Future>(_name: &str, f: F) -> F::Output {
-    f.await
+pub fn enter_component_ephemeral_async<F: Future>(_name: &str, f: F) -> F {
+    f
 }
 
 #[inline]
@@ -38,6 +39,7 @@ pub fn new_trace_source(_name: &str) -> TraceSource {
     TraceSource(())
 }
 
+#[inline]
 pub fn new_trace_source_ephemeral(_name: &str) -> TraceSource {
     TraceSource(())
 }
@@ -45,10 +47,12 @@ pub fn new_trace_source_ephemeral(_name: &str) -> TraceSource {
 pub struct Source(());
 
 impl Source {
+    #[inline]
     pub(crate) fn new() -> Self {
         Self(())
     }
 
+    #[inline]
     pub fn id(&self) -> SourceId { SourceId { source: u64::MAX } }
 }
 
@@ -61,8 +65,8 @@ impl TraceSource {
     }
 
     #[inline]
-    pub async fn trace_future<R>(&self, f: impl core::future::Future<Output = R>) -> R {
-        f.await
+    pub fn trace_future<F: Future>(&self, f: F) -> F {
+        f
     }
 
     #[inline]
@@ -84,7 +88,6 @@ pub fn trace_metric(_name: &'static str, _value: i64) { }
 #[inline]
 pub fn trace_label(_label: &'static str) { }
 
-#[cfg(not(feature = "enabled"))]
 #[inline]
 pub fn trace_branch<R>(f: impl FnOnce() -> R) -> R {
     f()
