@@ -1,6 +1,6 @@
 [package]
 name = "probius"
-version = "0.0.8"
+version = "0.0.9"
 edition = "2024"
 description = "metrics and tracing system that learns the structure of your system"
 repository = "https://github.com/modrpc-org/probius"
@@ -18,7 +18,6 @@ tcp-sink = ["enabled", "fastrand", "pollster"]
 bab = "0.0"
 mproto = "0.2"
 probius-mproto = { version = "0.1.0", path = "../probius-mproto", default-features = false, features = ["std"] }
-spin = "0.9"
 
 fastrand = { version = "2", optional = true }
 pollster = { version = "0.4", optional = true }

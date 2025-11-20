@@ -7,9 +7,9 @@ use core::{
     },
 };
 use std::rc::Rc;
+use std::sync::Mutex;
 
 use probius_mproto::{GlobalSourceId, MetricAggregate, SourceId};
-use spin::Mutex;
 
 use crate::{
     component::{self, Component},
@@ -42,7 +42,7 @@ pub fn init(buffer_headroom: usize, buffer_pool: bab::HeapBufferPool) {
     //let buffers_per_batch = (min_buffer_count + batch_count - 1) / batch_count;
     //let buffer_pool = bab::HeapBufferPool::new(buffer_size, batch_count, buffers_per_batch);
 
-    let mut app_config = APP_CONFIG.lock();
+    let mut app_config = APP_CONFIG.lock().expect("probius app config lock");
     if app_config.is_some() {
         drop(app_config);
         panic!("probius::init called twice");
@@ -60,7 +60,7 @@ fn with_probius<R>(f: impl FnOnce(&Probius) -> R) -> R {
 fn try_with_probius<R>(f: impl FnOnce(&Probius) -> R) -> R {
     PROBIUS.with(move |probius| {
         let probius = probius.get_or_init(move || {
-            let mut maybe_app_config = APP_CONFIG.lock();
+            let mut maybe_app_config = APP_CONFIG.lock().expect("probius app config lock");
             let app_config = maybe_app_config.get_or_insert_with(|| {
                 // Default to the void sink if none was setup by the application.
                 let buffer_pool = bab::HeapBufferPool::new(8192, 16, 16);
